@@ -1085,6 +1085,13 @@ process Predict_coding_abilities_by_CPAT {
                                        -d !{baseDir}/bin/cpat_model/fly_logitModel.RData \
                                        -o novel.longRNA.CPAT.out
         '''
+    }else {
+        '''
+        cpat.py -g !{novel_lncRNA_fasta} \
+                                       -x params.cpat_hexamer \
+                                       -d params.cpat_logit_model \
+                                       -o novel.longRNA.CPAT.out
+        '''
     }
 
 }
@@ -1243,14 +1250,21 @@ process Rerun_CPAT_to_evaluate_lncRNA {
                                        -d !{baseDir}/bin/cpat_model/zebrafish_logitModel.RData \
                                        -o lncRNA.final.CPAT.out
         '''
-    }else {
+    }else if (params.species=="fly"){
         '''
         cpat.py -g !{lncRNA_final_cpat_fasta} \
                                        -x !{baseDir}/bin/cpat_model/fly_Hexamer.tsv \
                                        -d !{baseDir}/bin/cpat_model/fly_logitModel.RData \
                                        -o lncRNA.final.CPAT.out
         '''
-   }
+    }else {
+        '''
+        cpat.py -g !{lncRNA_final_cpat_fasta} \
+                                       -x params.cpat_hexamer \
+                                       -d params.cpat_logit_model \
+                                       -o lncRNA.final.CPAT.out
+        '''
+    }
 }
 //evaluate coding
 process Rerun_CPAT_to_evaluate_coding {
@@ -1265,6 +1279,7 @@ process Rerun_CPAT_to_evaluate_coding {
                                        -d !{baseDir}/bin/cpat_model/Human_logitModel.RData \
                                        -o protein_coding.final.CPAT.out
         '''
+    println print_purple("Why is Rerun_CPAT_to_evaluate_coding always using human?")
 }
 //summary result
 process Secondary_basic_statistic {
