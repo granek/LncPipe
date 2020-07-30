@@ -1053,6 +1053,8 @@ process Predict_coding_abilities_by_PLEK {
 process Predict_coding_abilities_by_CPAT {
     input:
     file novel_lncRNA_fasta from NovelLncRnaFasta_for_CPAT
+    file cpat_hexamer from params.cpat_hexamer
+    file cpat_logit_model from params.cpat_logit_model
     output:
     file "novel.longRNA.CPAT.out" into Novel_longRNA_CPAT_result
     shell:
@@ -1088,8 +1090,8 @@ process Predict_coding_abilities_by_CPAT {
     }else {
         '''
         cpat.py -g !{novel_lncRNA_fasta} \
-                                       -x !{params.cpat_hexamer} \
-                                       -d !{params.cpat_logit_model} \
+                                       -x !{cpat_hexamer} \
+                                       -d !{cpat_logit_model} \
                                        -o novel.longRNA.CPAT.out
         '''
     }
@@ -1224,6 +1226,8 @@ process Summary_renaming_and_classification {
 process Rerun_CPAT_to_evaluate_lncRNA {
     input:
     file lncRNA_final_cpat_fasta from final_lncRNA_for_CPAT_fa
+    file cpat_hexamer from params.cpat_hexamer
+    file cpat_logit_model from params.cpat_logit_model
     output:
     file "lncRNA.final.CPAT.out" into final_lncRNA_CPAT_result
     shell:
@@ -1260,8 +1264,8 @@ process Rerun_CPAT_to_evaluate_lncRNA {
     }else {
         '''
         cpat.py -g !{lncRNA_final_cpat_fasta} \
-                                       -x !{params.cpat_hexamer} \
-                                       -d !{params.cpat_logit_model} \
+                                       -x !{cpat_hexamer} \
+                                       -d !{cpat_logit_model} \
                                        -o lncRNA.final.CPAT.out
         '''
     }
