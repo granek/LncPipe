@@ -205,12 +205,8 @@ if(params.aligner=='star'){
 input_folder = file(params.input_folder)
 multiqc_config = file(params.multiqc_config)
 
-if(params.cpat_hexamer){
-    cpat_hexamer = file(params.cpat_hexamer)
-}
-if(params.cpat_logit_model){
-    cpat_logit_model = file(params.cpat_logit_model)
-}
+cpat_hexamer = file(params.cpat_hexamer)
+cpat_logit_model = file(params.cpat_logit_model)
 
 
 /*
