@@ -205,6 +205,14 @@ if(params.aligner=='star'){
 input_folder = file(params.input_folder)
 multiqc_config = file(params.multiqc_config)
 
+if(params.cpat_hexamer){
+    cpat_hexamer = file(params.cpat_hexamer)
+}
+if(params.cpat_logit_model){
+    cpat_logit_model = file(params.cpat_logit_model)
+}
+
+
 /*
 *Step 1: Prepare Annotations
  */
@@ -1053,8 +1061,8 @@ process Predict_coding_abilities_by_PLEK {
 process Predict_coding_abilities_by_CPAT {
     input:
     file novel_lncRNA_fasta from NovelLncRnaFasta_for_CPAT
-    file cpat_hexamer from params.cpat_hexamer
-    file cpat_logit_model from params.cpat_logit_model
+    file cpat_hexamer
+    file cpat_logit_model
     output:
     file "novel.longRNA.CPAT.out" into Novel_longRNA_CPAT_result
     shell:
@@ -1226,8 +1234,8 @@ process Summary_renaming_and_classification {
 process Rerun_CPAT_to_evaluate_lncRNA {
     input:
     file lncRNA_final_cpat_fasta from final_lncRNA_for_CPAT_fa
-    file cpat_hexamer from params.cpat_hexamer
-    file cpat_logit_model from params.cpat_logit_model
+    file cpat_hexamer
+    file cpat_logit_model
     output:
     file "lncRNA.final.CPAT.out" into final_lncRNA_CPAT_result
     shell:
