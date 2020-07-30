@@ -1088,8 +1088,8 @@ process Predict_coding_abilities_by_CPAT {
     }else {
         '''
         cpat.py -g !{novel_lncRNA_fasta} \
-                                       -x params.cpat_hexamer \
-                                       -d params.cpat_logit_model \
+                                       -x !{params.cpat_hexamer} \
+                                       -d !{params.cpat_logit_model} \
                                        -o novel.longRNA.CPAT.out
         '''
     }
@@ -1260,8 +1260,8 @@ process Rerun_CPAT_to_evaluate_lncRNA {
     }else {
         '''
         cpat.py -g !{lncRNA_final_cpat_fasta} \
-                                       -x params.cpat_hexamer \
-                                       -d params.cpat_logit_model \
+                                       -x !{params.cpat_hexamer} \
+                                       -d !{params.cpat_logit_model} \
                                        -o lncRNA.final.CPAT.out
         '''
     }
