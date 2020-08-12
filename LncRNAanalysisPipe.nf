@@ -1289,13 +1289,42 @@ process Rerun_CPAT_to_evaluate_coding {
     output:
     file "protein_coding.final.CPAT.out" into final_coding_gene_CPAT_result
     shell:
-    '''
+    if(params.species=="human"){
+        '''
         cpat.py -g !{final_coding_gene_for_CPAT} \
                                        -x !{baseDir}/bin/cpat_model/Human_Hexamer.tsv \
                                        -d !{baseDir}/bin/cpat_model/Human_logitModel.RData \
                                        -o protein_coding.final.CPAT.out
         '''
-    println print_purple("Why is Rerun_CPAT_to_evaluate_coding always using human?")
+    }else if (params.species=="mouse"){
+        '''
+        cpat.py -g !{final_coding_gene_for_CPAT} \
+                                       -x !{baseDir}/bin/cpat_model/Mouse_Hexamer.tsv \
+                                       -d !{baseDir}/bin/cpat_model/Mouse_logitModel.RData \
+                                       -o protein_coding.final.CPAT.out
+        '''
+
+    }else if (params.species=="zebrafish"){
+        '''
+        cpat.py -g !{final_coding_gene_for_CPAT} \
+                                       -x !{baseDir}/bin/cpat_model/zebrafish_Hexamer.tsv \
+                                       -d !{baseDir}/bin/cpat_model/zebrafish_logitModel.RData \
+                                       -o protein_coding.final.CPAT.out
+        '''
+    }else if (params.species=="fly"){
+        '''
+        cpat.py -g !{final_coding_gene_for_CPAT} \
+                                       -x !{baseDir}/bin/cpat_model/fly_Hexamer.tsv \
+                                       -d !{baseDir}/bin/cpat_model/fly_logitModel.RData \
+                                       -o protein_coding.final.CPAT.out
+        '''
+    }else {
+        '''
+        cpat.py -g !{final_coding_gene_for_CPAT} \
+                                       -x !{cpat_hexamer} \
+                                       -d !{cpat_logit_model} \
+                                       -o protein_coding.final.CPAT.out
+        '''
 }
 //summary result
 process Secondary_basic_statistic {
