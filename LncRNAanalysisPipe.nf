@@ -1325,6 +1325,7 @@ process Rerun_CPAT_to_evaluate_coding {
                                        -d !{cpat_logit_model} \
                                        -o protein_coding.final.CPAT.out
         '''
+    }
 }
 //summary result
 process Secondary_basic_statistic {
