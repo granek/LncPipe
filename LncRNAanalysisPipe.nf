@@ -1286,6 +1286,8 @@ process Rerun_CPAT_to_evaluate_lncRNA {
 process Rerun_CPAT_to_evaluate_coding {
     input:
     file final_coding_gene_for_CPAT from final_coding_gene_for_CPAT_fa
+    file cpat_hexamer
+    file cpat_logit_model
     output:
     file "protein_coding.final.CPAT.out" into final_coding_gene_CPAT_result
     shell:
