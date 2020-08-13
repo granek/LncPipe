@@ -1712,9 +1712,8 @@ if(design!=null){
             """
 	    # Next two lines are a hack to manage the fact that LncPipeReporter wants to write to the library directory.
 	    # We copy the LncPipeReporter libray to the current directory and set the library search path to the current directory
-	    Rscript -e "library(fs); dir_copy(system.file(package = 'LncPipeReporter'), getwd())"
+	    Rscript -e "file.copy(system.file(package = 'LncPipeReporter'), getwd(), recursive = TRUE)"
 	    export R_LIBS_USER=$PWD
-
              Rscript -e "library(LncPipeReporter);run_reporter(input='.', output = 'reporter.html',output_dir='./LncPipeReports',de.method=\'${detools}\',theme = 'npg',cdf.percent = ${lncRep_cdf_percent},max.lncrna.len = ${lncRep_max_lnc_len},min.expressed.sample = ${lncRep_min_expressed_sample}, ask = FALSE)"
             """
         }
