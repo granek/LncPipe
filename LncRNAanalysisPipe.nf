@@ -1710,11 +1710,13 @@ if(design!=null){
             shell:
             file_tag = "Generating report ..."
             """
-	    # Next two lines are a hack to manage the fact that LncPipeReporter wants to write to the library directory.
+	    # Next few lines are a hack to manage the fact that LncPipeReporter wants to write to the library directory.
 	    # We copy the LncPipeReporter libray to the current directory and set the library search path to the current directory
 	    Rscript -e "file.copy(system.file(package = 'LncPipeReporter'), getwd(), recursive = TRUE)"
-	    export MYVAR=`Rscript -e "getwd()"`
-	    echo $MYVAR
+	    export R_LIBS_USER=`pwd`
+	    Rscript -e ".libPaths()"
+	    # End of LncPipeReporter Hack
+	    
              Rscript -e "library(LncPipeReporter);run_reporter(input='.', output = 'reporter.html',output_dir='./LncPipeReports',de.method=\'${detools}\',theme = 'npg',cdf.percent = ${lncRep_cdf_percent},max.lncrna.len = ${lncRep_max_lnc_len},min.expressed.sample = ${lncRep_min_expressed_sample}, ask = FALSE)"
             """
         }
